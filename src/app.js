@@ -8,12 +8,11 @@ const socket = io.connect('http://localhost:3000');
 const queue = new Q('deeds');
 
 const App = (props) => {
-
   const [values, setValues] = useState({});
   const [queueMessage, setQueueMessage] = useState({});
   const [socketMessage, setSocketMessage] = useState({});
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value});
   };
 
@@ -23,18 +22,16 @@ const App = (props) => {
 
     Q.publish('deeds', 'work', values);
     socket.emit('words', values);
-
   };
 
   useEffect( () => {
-    queue.subscribe('work', message => {
+    queue.subscribe('work', (message) => {
       setQueueMessage(message);
     });
 
-    socket.on('incoming', message => {
+    socket.on('incoming', (message) => {
       setSocketMessage(message);
     });
-
   }, []);
 
 
@@ -50,7 +47,7 @@ const App = (props) => {
       </form>
     </>
   );
-}
+};
 
 export default App;
 
