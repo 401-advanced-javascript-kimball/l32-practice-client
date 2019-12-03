@@ -41,8 +41,14 @@ const App = (props) => {
       <pre>Queue Values: {JSON.stringify(queueMessage)}</pre>
       <pre>Socket Values: {JSON.stringify(socketMessage)}</pre>
       <form onSubmit={handleSubmit}>
-        <input name='firstName' placeholder="First Name" onChange={handleChange} />
-        <input name='lastName' placeholder="Last Name" onChange={handleChange} />
+        <input
+          name='firstName'
+          placeholder="First Name"
+          onChange={handleChange} />
+        <input
+          name='lastName'
+          placeholder="Last Name"
+          onChange={handleChange} />
         <button>Save</button>
       </form>
     </>

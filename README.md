@@ -1,27 +1,34 @@
-# l32-practice-client
+# LAB - l32-practice-client
+
+## l32-practice-client
+
+### Author: Jonathan Kimball
+
+### Links and Resources
 
 * [submission PR](https://github.com/401-advanced-javascript-kimball/l32-practice-client/pull/1)
 * [travis](https://travis-ci.com/401-advanced-javascript-kimball/l32-practice-client)
-
-# LAB - 
-
-## Project Name
-
-### Author: Student/Group Name
-
-### Links and Resources
-* [submission PR](http://xyz.com)
-* [travis](http://xyz.com)
 * [back-end](http://xyz.com) (when applicable)
 * [front-end](http://xyz.com) (when applicable)
 
 #### Documentation
+
 * [api docs](http://xyz.com) (API servers)
-* [jsdoc](http://xyz.com) (Server assignments)
-* [styleguide](http://xyz.com) (React assignments)
+* [jsdoc](http://xyz.com) (Server assignments)nts)
 
 ### Modules
-#### `modulename.js`
+
+#### `src/index.js`
+
+#### `src/hooks/socket.js`
+
+#### `src/hooks/form.js`
+
+#### `src/hooks/q.js`
+
+#### `src/app.js`
+
+
 ##### Exported Values and Methods
 
 ###### `foo(thing) -> string`
@@ -31,9 +38,11 @@ Usage Notes or examples
 Usage Notes or examples
 
 ### Setup
+
 #### `.env` requirements
-* `PORT` - Port Number
-* `MONGODB_URI` - URL to the running mongo instance/db
+
+* Q_SERVER=http://localhost:3333
+
 
 #### Running the app
 * `npm start`
