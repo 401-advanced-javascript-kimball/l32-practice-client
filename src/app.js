@@ -1,39 +1,29 @@
 import React, {useState, useEffect} from 'react';
 
-import io from 'socket.io-client';
-import Q from '@nmq/q/client';
-
-// Connect outside of the render cycle ...
-const socket = io.connect('http://localhost:3000');
-const queue = new Q('deeds');
+import useForm from './hooks/form.js';
+import useSocket from './hooks/socket.js';
+import useQ from './hooks/q.js';
 
 const App = (props) => {
-  const [values, setValues] = useState({});
   const [queueMessage, setQueueMessage] = useState({});
   const [socketMessage, setSocketMessage] = useState({});
 
-  const handleChange = (e) => {
-    setValues({...values, [e.target.name]: e.target.value});
+  const [qSubscribe, qPublish] = useQ('deeds');
+  const [socketSubscribe, socketPublish] = useSocket();
+  
+  const handleSubmitValues = (values) => {
+    qPublish('work', values);
+    socketPublish('words', values);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
-
-    Q.publish('deeds', 'work', values);
-    socket.emit('words', values);
-  };
-
-  useEffect( () => {
-    queue.subscribe('work', (message) => {
-      setQueueMessage(message);
-    });
-
-    socket.on('incoming', (message) => {
-      setSocketMessage(message);
-    });
-  }, []);
-
+  
+  const [handleChange, handleSubmit, values] = useForm(handleSubmitValues); 
+  
+  useEffect(() => {
+    qSubscribe('work', setQueueMessage);
+    socketSubscribe('incoming', setSocketMessage);
+  },
+  // only run when first rendered
+  []);
 
   return (
     <>
@@ -44,11 +34,18 @@ const App = (props) => {
         <input
           name='firstName'
           placeholder="First Name"
-          onChange={handleChange} />
+          onChange={handleChange}
+        />
         <input
-          name='lastName'
-          placeholder="Last Name"
-          onChange={handleChange} />
+          name='middleName'
+          placeholder="Middle Name"
+          onChange={handleChange}
+        />
+        <input
+          name = 'lastName'
+          placeholder = "Last Name"
+          onChange = {handleChange}
+        />
         <button>Save</button>
       </form>
     </>
